@@ -60,4 +60,6 @@ action "release-it-patch" {
   ]
 }
 
-# Filter for a new tag
+workflow "New workflow" {
+  on = "push"
+}# Filter for a new tag
