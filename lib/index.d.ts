@@ -1,1 +1,2 @@
-export * from './interfaces/user';
+export * from './enums';
+export * from './interfaces';
