@@ -31,7 +31,7 @@ action "release-master" {
 
 workflow "Build, Test, and Publish (develop)" {
   resolves = [
-    "release-it",
+    "release-develop",
   ]
   on = "push"
 }
