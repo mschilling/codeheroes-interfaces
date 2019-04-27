@@ -51,35 +51,23 @@ workflow "Build, Test, and Publish (develop)" {
 action "filter-develop" {
   uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
   args = "branch develop"
-  env = {
-    RELEASE_TYPE = "patch"
-  }
 }
 
-action "Build" {
+action "prepare-develop" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   needs = ["filter-develop"]
+  args = "run config:ci"
+}
+
+action "build-develop" {
+  needs = ["prepare-develop"]
   uses = "actions/npm@master"
   args = "install"
 }
 
-action "Build Project" {
-  needs = "Build"
-  uses = "actions/npm@master"
-  args = "run build"
-}
-
-action "git-config" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["Build Project"]
-  args = "run config:ci"
-  secrets = ["GITHUB_TOKEN"]
-}
-
-action "release-it" {
+action "release-develop" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release patch"
   secrets = ["GITHUB_TOKEN"]
-  needs = [
-    "git-config",
-  ]
+  needs = ["build-develop"]
 }
