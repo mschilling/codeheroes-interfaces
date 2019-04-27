@@ -1,4 +1,4 @@
-workflow "Build, Test, and Publish" {
+workflow "Release Master" {
   resolves = [
     "release-it",
   ]
