@@ -1,6 +1,7 @@
 workflow "Build, Test, and Publish" {
   resolves = [
-    "release-it",
+    "release-it-patch",
+    "release-it-minor",
   ]
   on = "push"
 }
@@ -41,12 +42,20 @@ action "filter-master" {
   }
 }
 
-action "release-it" {
+action "release-it-minor" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run release ${RELEASE_TYPE}"
+  args = "run release minor"
   secrets = ["GITHUB_TOKEN"]
   needs = [
     "filter-master",
+  ]
+}
+
+action "release-it-patch" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  args = "run release major"
+  secrets = ["GITHUB_TOKEN"]
+  needs = [
     "filter-develop",
   ]
 }
