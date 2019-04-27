@@ -2,7 +2,8 @@
     "non-interactive": true,
     "git": {
       "tagName": "%s",
-      "requireCleanWorkingDir": false
+      "requireCleanWorkingDir": false,
+      "requireUpstream": false
     },
     "github": {
       "release": true
