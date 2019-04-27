@@ -1,6 +1,9 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["Build lib"]
+  resolves = [
+    "Build lib",
+    "Build Project",
+  ]
 }
 
 action "Build" {
@@ -19,4 +22,8 @@ action "Build lib" {
   needs = ["Build Project"]
   args = "run release"
   secrets = ["GITHUB_TOKEN"]
+  env = {
+    GIT_COMMITTER_EMAIL = "mschilling@arkid.nl"
+    GIT_COMMITTER_NAME = "\"Michael CI\""
+  }
 } # Filter for a new tag
