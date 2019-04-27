@@ -16,7 +16,8 @@
     "release": "npm run build:clean && npm run build && npm run release:clean && npm run release:prepare && npm run release:perform",
     "release:clean": "rimraf lib",
     "release:prepare": "cpx \"build/**/*\" lib && git add -A",
-    "release:perform": "release-it"
+    "release:perform": "release-it",
+    "config:ci": "git config --global user.name \"Michael CI\" && git config --global user.email \"mschilling@arkid.nl\""
   },
   "repository": {
     "type": "git",
