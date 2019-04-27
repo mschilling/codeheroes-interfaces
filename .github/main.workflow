@@ -1,7 +1,7 @@
 workflow "Build, Test, and Publish" {
   resolves = [
-    "filter-master",
-    "filter-develop",
+    "release-minor",
+    "release-patch",
   ]
   on = "push"
 }
