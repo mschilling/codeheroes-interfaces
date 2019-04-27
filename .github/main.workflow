@@ -1,6 +1,6 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["Build Project"]
+  resolves = ["Build lib"]
 }
 
 action "Build" {
@@ -14,4 +14,8 @@ action "Build Project" {
   args = "run build"
 }
 
-# Filter for a new tag
+action "Build lib" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  needs = ["Build Project"]
+  args = "run release"
+}# Filter for a new tag
