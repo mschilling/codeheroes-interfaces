@@ -1,6 +1,6 @@
 workflow "Build, Test, and Publish (master)" {
   resolves = [
-    "release-it-master",
+    "release-master",
   ]
   on = "push"
 }
