@@ -8,10 +8,18 @@ script:
 - npm install
 - npm run build
 after_success:
-- npm run release
+# - npm run release
 cache:
   directories:
   - "$(npm config get prefix)/bin/firebase-tools"
   - node_modules
 notifications:
   email: false
+deploy:
+  provider: releases
+  api_key:
+    secure: asBzhdMhT81qwJDpcXtZHTNcODGZxqM0dPXQ2DIuE6VBrybgDiwrVjJzhdvLlNGsMfKN+85F9/9AjfUjNtc28REuHr3pXMYnQcU9ipzRiTrdLu9ua6Gce9QQ3jlIPRoF9PNRkF2e8kvvT4fykHm5kiOWqdLxvjpffeomQg67Wxhit9XFAiPSuOTxpuNMs9IXunhMREEUb4wXvwjVnyR3ReGko+W/O1NHTL62/CnX93EUm9G5YCe7++9e7xcC6dvetdwT9i0M0zPcR1OReRKUrqX+8C5ZIn7MKhRc/kARh6e4qHH4MOTU0hdjsA/cj7GkklBORyS27T6cENAx5QHjOeO3FN7XAX7pzPvQ9qSY8eW5A6Y+suwIZf59KPUc1HxXZOEmjBLvrdfI2I2p0YCh/LUaXeSUpE7dxDs45JVEVezJq7DTndBw0pN8KMzO7QhAfi3+AyaDmN2h6ZHNdDrykrLAfaQQJzN8dk0+z1+TsBHEx1LFLoAPdxbxNTD9VpkCG6TpgSJRiyduCKd1vrEmPt3p8ry1Ryli53fLidBRJs0LnGOnsKjXPNFaWku+fKH9ov7Z3RkDSKr0xNau9QUT5kaekH97T5VxGy08GS6yOBhTNtqJm9WW57P8Kblx16BdEyZRFKMG2yyNQxpmWrFjCQ7PxkgRBSMjmLLoJw859Ic=
+  file_glob: true
+  file: lib/*
+  on:
+    repo: mschilling/code-heroes-interfaces
