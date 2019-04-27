@@ -1,0 +1,19 @@
+{
+  "name": "code-heroes-interfaces",
+  "version": "0.0.1",
+  "description": "Code Heroes Interfaces",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mschilling/code-heroes-interfaces.git"
+  },
+  "author": "Michael Schilling",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mschilling/code-heroes-interfaces/issues"
+  },
+  "homepage": "https://github.com/mschilling/code-heroes-interfaces#readme"
+}
