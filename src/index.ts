@@ -1,1 +1,5 @@
-export * from './interfaces/user';
+// Export enums
+export * from './enums';
+
+// Export interfaces
+export * from './interfaces';
