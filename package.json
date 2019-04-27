@@ -1,6 +1,6 @@
 {
   "name": "code-heroes-interfaces",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Code Heroes Interfaces",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
