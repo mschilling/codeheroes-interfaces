@@ -25,7 +25,7 @@ action "Build lib" {
 } # Filter for a new tag
 
 action "Shell" {
-  uses = "Shell"
+  uses = "docker://alpine:3.8"
   needs = ["Build Project"]
-  runs = " git config --global user.name \"Your Name\""
+  runs = ["sh", "-c", "git config --global user.name \"Your Name\""]
 }
