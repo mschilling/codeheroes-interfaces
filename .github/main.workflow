@@ -1,73 +1,54 @@
-workflow "Build, Test, and Publish" {
+workflow "Build, Test, and Publish (master)" {
   resolves = [
-    "release-it-patch",
-    "release-it-minor",
+    "release-it-master",
   ]
   on = "push"
 }
 
-action "Build" {
-  uses = "actions/npm@master"
-  args = "install"
-}
-
-action "Build Project" {
-  needs = "Build"
-  uses = "actions/npm@master"
-  args = "run build"
-}
-
-action "Config Git" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  needs = ["Build Project"]
-  args = "run config:ci"
-  secrets = ["GITHUB_TOKEN"]
-}
-
-action "filter-develop" {
-  uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
-  needs = ["Config Git"]
-  args = "branch develop"
-  env = {
-    RELEASE_TYPE = "patch"
-  }
-}
-
 action "filter-master" {
   uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
-  needs = ["Config Git"]
   args = "branch master"
   env = {
     RELEASE_TYPE = "minor"
   }
 }
 
-action "release-it-minor" {
+action "Build Master" {
+  needs = ["filter-master"]
+  uses = "actions/npm@master"
+  args = "install"
+}
+
+action "Build Project Master" {
+  needs = "Build Master"
+  uses = "actions/npm@master"
+  args = "run build"
+}
+
+action "git-config-master" {
+  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
+  needs = ["Build Project Master"]
+  args = "run config:ci"
+  secrets = ["GITHUB_TOKEN"]
+}
+
+action "release-it-master" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release minor"
   secrets = ["GITHUB_TOKEN"]
   needs = [
-    "filter-master",
+    "git-config-master",
   ]
 }
 
-action "release-it-patch" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run release major"
-  secrets = ["GITHUB_TOKEN"]
-  needs = [
-    "filter-develop",
-  ]
-}
-
-workflow "Release Master" {
+workflow "Build, Test, and Publish (develop)" {
   resolves = [
     "release-it",
   ]
   on = "push"
 }
 
-action "filter-master" {
+action "filter-develop" {
   uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
   args = "branch master"
   env = {
@@ -76,7 +57,7 @@ action "filter-master" {
 }
 
 action "Build" {
-  needs = ["filter-master"]
+  needs = ["filter-develop"]
   uses = "actions/npm@master"
   args = "install"
 }
@@ -96,7 +77,7 @@ action "git-config" {
 
 action "release-it" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run release minor"
+  args = "run release patch"
   secrets = ["GITHUB_TOKEN"]
   needs = [
     "git-config",
