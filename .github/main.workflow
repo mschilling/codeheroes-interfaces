@@ -1,6 +1,5 @@
 workflow "Build, Test, and Publish" {
   resolves = [
-    "filter-develop",
     "release-it",
   ]
   on = "push"
