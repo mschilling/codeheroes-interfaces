@@ -36,14 +36,14 @@ action "filter-master" {
   args = "branch master"
 }
 
-action "Build lib" {
+action "release-minor" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release minor"
   secrets = ["GITHUB_TOKEN"]
   needs = ["filter-master"]
 } 
 
-action "Build lib" {
+action "release-patch" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release"
   secrets = ["GITHUB_TOKEN"]
