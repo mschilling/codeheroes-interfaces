@@ -15,5 +15,17 @@
   "bugs": {
     "url": "https://github.com/mschilling/code-heroes-interfaces/issues"
   },
-  "homepage": "https://github.com/mschilling/code-heroes-interfaces#readme"
+  "homepage": "https://github.com/mschilling/code-heroes-interfaces#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "cpx": "^1.5.0",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-json-transform": "^0.4.6",
+    "gulp-rename": "^1.4.0",
+    "release-it": "^10.1.0",
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.0.2",
+    "typescript": "^3.3.3"
+  }
 }
