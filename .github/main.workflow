@@ -1,6 +1,9 @@
 workflow "Build, Test, and Publish" {
   on = "push"
-  resolves = ["Build lib"]
+  resolves = [
+    "Build lib",
+    "Shell",
+  ]
 }
 
 action "Build" {
@@ -20,3 +23,9 @@ action "Build lib" {
   args = "run release"
   secrets = ["GITHUB_TOKEN"]
 } # Filter for a new tag
+
+action "Shell" {
+  uses = "Shell"
+  needs = ["Build Project"]
+  runs = " git config --global user.name \"Your Name\""
+}
