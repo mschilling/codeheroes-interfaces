@@ -1,7 +1,7 @@
 workflow "Build, Test, and Publish" {
   resolves = [
-    "release-minor",
-    "release-patch",
+    "filter-develop",
+    "release-it",
   ]
   on = "push"
 }
@@ -28,24 +28,28 @@ action "filter-develop" {
   uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
   needs = ["Config Git"]
   args = "branch develop"
+  env = {
+    RELEASE_TYPE = "patch"
+  }
 }
 
 action "filter-master" {
   uses = "actions/bin/filter@3c0b4f0e63ea54ea5df2914b4fabf383368cd0da"
   needs = ["Config Git"]
   args = "branch master"
+  env = {
+    RELEASE_TYPE = "minor"
+  }
 }
 
-action "release-minor" {
+action "release-it" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run release minor"
+  args = "run release ${RELEASE_TYPE}"
   secrets = ["GITHUB_TOKEN"]
-  needs = ["filter-master"]
+  needs = [
+    "filter-master",
+    "filter-develop",
+  ]
 }
 
-action "release-patch" {
-  uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
-  args = "run release"
-  secrets = ["GITHUB_TOKEN"]
-  needs = ["filter-develop"]
-} # Filter for a new tag
+# Filter for a new tag
