@@ -2,7 +2,7 @@ workflow "Build, Test, and Publish" {
   on = "push"
   resolves = [
     "Build lib",
-    "Shell",
+    "Build Project",
   ]
 }
 
@@ -22,10 +22,8 @@ action "Build lib" {
   needs = ["Build Project"]
   args = "run release"
   secrets = ["GITHUB_TOKEN"]
+  env = {
+    GIT_COMMITTER_EMAIL = "mschilling@arkid.nl"
+    GIT_COMMITTER_NAME = "\"Michael CI\""
+  }
 } # Filter for a new tag
-
-action "Shell" {
-  uses = "docker://alpine:3.8"
-  needs = ["Build Project"]
-  runs = ["sh", "-c", "git config --global user.name \"Your Name\""]
-}
