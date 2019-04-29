@@ -7,11 +7,10 @@ before_script:
 script:
 - npm install
 - npm run build
-after_success:
-- npm run release
 cache:
   directories:
   - "$(npm config get prefix)/bin/firebase-tools"
   - node_modules
 notifications:
   email: false
+  webhooks: https://travis.webhooks.m4m.io
