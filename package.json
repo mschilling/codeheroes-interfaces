@@ -17,7 +17,8 @@
     "release:clean": "rimraf lib",
     "release:prepare": "cpx \"build/**/*\" lib && git add -A",
     "release:perform": "release-it",
-    "config:ci": "git config --global user.name \"CI\" && git config --global user.email \"ci@localhost\""
+    "config:ci": "git config --global user.name \"CI\" && git config --global user.email \"ci@localhost\"",
+    "docs": "rimraf docs && typedoc src --out docs"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "release-it": "^10.1.0",
     "rimraf": "^2.6.3",
     "ts-node": "^8.0.2",
+    "typedoc": "^0.14.2",
     "typescript": "^3.3.3"
   }
 }

@@ -22,11 +22,17 @@ action "build-master" {
   args = "install"
 }
 
+action "docs-master" {
+  needs = ["build-master"]
+  uses = "actions/npm@master"
+  args = "run docs"
+}
+
 action "release-master" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release minor"
   secrets = ["GITHUB_TOKEN"]
-  needs = ["build-master"]
+  needs = ["docs-master"]
 }
 
 workflow "Build, Test, and Publish (develop)" {
@@ -53,9 +59,15 @@ action "build-develop" {
   args = "install"
 }
 
+action "docs-develop" {
+  needs = ["build-develop"]
+  uses = "actions/npm@master"
+  args = "run docs"
+}
+
 action "release-develop" {
   uses = "actions/npm@59b64a598378f31e49cb76f27d6f3312b582f680"
   args = "run release patch"
   secrets = ["GITHUB_TOKEN"]
-  needs = ["build-develop"]
+  needs = ["docs-develop"]
 }
