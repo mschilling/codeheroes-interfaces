@@ -18,7 +18,7 @@
     "release:prepare": "cpx \"build/**/*\" lib && git add -A",
     "release:perform": "release-it",
     "config:ci": "git config --global user.name \"CI\" && git config --global user.email \"ci@localhost\"",
-    "docs": "rimraf docs && typedoc src --out docs"
+    "docs": "rimraf docs && typedoc src --out docs && touch docs/.nojekyll"
   },
   "repository": {
     "type": "git",
